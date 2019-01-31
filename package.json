@@ -1,0 +1,14 @@
+{
+  "name": "twitter-graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^7.8.0",
+    "twit": "^2.2.11"
+  }
+}
