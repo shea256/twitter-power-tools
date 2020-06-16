@@ -1,26 +1,30 @@
-import db from '../../lib/db'
-import twitterAPI from '../../lib/twitter-api'
-import { logFollowers, logFollowees } from '../../lib/log-ids'
+import { logFollowers, logFollowees } from '../../lib/log-graph'
+import { Pool } from 'pg'
+import { parse } from 'pg-connection-string' 
+import Twit from 'twit'
 
 export default async (req, res) => {
-  // username is the twitter username
-  // group is either 'followers' or 'followees'
-  // first is the index of the first user to resolve
-  // last is the index of the last user to resolve
+  const { body: { dbString, twitterClient, twitterUsername, group, cursor } } = req
 
-  const { body: { username, group, cursor } } = req
+  const dbConfig = parse(dbString)
+  const db = new Pool(dbConfig)
 
-  const twitterAPIWrapper = {
-    api: twitterAPI,
-    username: username
+  const twitterAPIConfig = {
+    consumer_key: twitterClient.consumerKey,
+    consumer_secret: twitterClient.consumerSecret,
+    access_token: twitterClient.accessToken,
+    access_token_secret: twitterClient.accessTokenSecret,
+    timeout_ms: 60*1000,
+    strictSSL: true
   }
+  const twitterAPI = new Twit(twitterAPIConfig)
 
   switch (group) {
     case 'followers':
-      logFollowers(db, twitterAPIWrapper, cursor)
+      logFollowers(db, twitterAPI, twitterUsername, cursor)
       break;
     case 'followees':
-      logFollowees(db, twitterAPIWrapper, cursor)
+      logFollowees(db, twitterAPI, twitterUsername, cursor)
       break;
     default:
       break;

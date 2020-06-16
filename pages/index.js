@@ -1,95 +1,104 @@
 import { Container, Button, FormGroup, Input } from 'reactstrap'
 import fetch from 'isomorphic-unfetch'
-import { useState } from 'react'
+import { useQuerySettings } from '../lib/actions'
 
-//import { logFollowees } from '../lib/log-ids'
-//logFollowees(db, twitterOptions, '1536987138437182000')
-//logFollowers(db, twitter, '1536987138437182000')
-//resolveUsers(db, twitter, 'followers', 100, 1900)
+const resolveUsers = async (db, twitterClient, group, limit, offset) => {
+	const response = fetch('/api/resolve-users', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			dbString: db.string,
+			twitterClient,
+			group,
+			limit,
+			offset
+		})
+	})
+	return response
+}
+
+const logGraph = async (db, twitterClient, twitterUsername, group, cursor) => {
+	const response = fetch('/api/log-graph', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			dbString: db.string,
+			twitterClient,
+			twitterUsername,
+			group,
+			cursor,
+		})
+	})
+	return response
+}
 
 const Home = () => {
-	const [username, setUsername] = useState('')
-	const [first, setFirst] = useState(0)
-	const [last, setLast] = useState(0)
-	const [cursor, setCursor] = useState(-1)
-
-	const resolveUsers = async () => {
-		const response = fetch('/api/resolve-users', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				username: username,
-				group: 'followers',
-				first: first,
-				last: last,
-			})
-		})
-	}
-
-	const logFollowers = async () => {
-		const response = fetch('/api/log-graph', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				username: username,
-				group: 'followers',
-				cursor: cursor,
-			})
-		})
-	}
-
-	const logFollowees = async () => {
-		const response = fetch('/api/log-graph', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				username: username,
-				group: 'followees',
-				cursor: cursor,
-			})
-		})
-	}
+	const [querySettings, setQuerySettings] = useQuerySettings()
 
 	return (
 		<>
 			<Container>
-				<div className="mt-5 mb-3">
-					<h1>Export Your Twitter Followers</h1>
+				<h1 className="mt-5">Export Your Twitter Followers</h1>
+				<div className="mt-5 mb-5">
+					<h3>Exporting</h3>
+					<div className="mb-3 mt-3">
+						<Button onClick={() => {
+							logGraph(database, twitterClient, twitterUsername, 'followers', cursor)
+						}}>
+							Log Follower ID's
+						</Button>
+						{' '}
+						<Button onClick={() => {
+							logGraph(database, twitterClient, twitterUsername, 'followees', cursor)
+						}}>
+							Log Followee ID's
+						</Button>
+					</div>
+					<div className="mb-3 mt-3">
+						<FormGroup>
+							<label>Cursor</label>
+							<Input id="cursor" value={querySettings.cursor} placeholder="Cursor"
+								onChange={(e) => setQuerySettings({ cursor: parseInt(e.target.value) })}
+								type="number" />
+						</FormGroup>
+					</div>
 				</div>
-				<div className="mt-3 mb-3">
-					<h3>Settings</h3>
-					<FormGroup>
-						<label>Username</label>
-						<Input id="username" value={username} placeholder="Username"
-							onChange={(e) => setUsername(e.target.value)} />
-					</FormGroup>
-					<FormGroup>
-						<label>Cursor</label>
-						<Input id="cursor" value={cursor} placeholder="Cursor"
-							onChange={(e) => setCursor(e.target.value)} />
-					</FormGroup>
-					<FormGroup>
-						<label>First</label>
-						<Input id="first" value={first} placeholder="First"
-							onChange={(e) => setFirst(e.target.value)} />
-					</FormGroup>
-					<FormGroup>
-						<label>Last</label>
-						<Input id="last" value={last} placeholder="Last"
-							onChange={(e) => setLast(e.target.value)} />
-					</FormGroup>
-
-					<h3>Actions</h3>
-					<Button onClick={logFollowers}>
-						Log Followers
-					</Button>
-					{' '}
-					<Button onClick={logFollowees}>
-						Log Followees
-					</Button>
-					{' '}
-					<Button onClick={resolveUsers}>
-						Resolve Users
+				<div className="mt-5 mb-5">
+					<h3>Lookups</h3>
+					<div className="mb-3 mt-3">
+						<Button onClick={() => {
+							resolveUsers(database, twitterClient, 'followers', querySettings.limit, querySettings.offset)
+						}}>
+							Lookup Followers
+						</Button>
+						{' '}
+						<Button onClick={() => {
+							resolveUsers(database, twitterClient, 'followees', querySettings.limit, querySettings.offset)
+						}}>
+							Lookup Followees
+						</Button>
+					</div>
+					<div className="mb-3 mt-3">
+						<FormGroup>
+							<label>Limit</label>
+							<Input id="limit" value={querySettings.limit} placeholder="Limit"
+								onChange={(e) => setQuerySettings({ limit: parseInt(e.target.value) })}
+								type="number" />
+						</FormGroup>
+						<FormGroup>
+							<label>Offset</label>
+							<Input id="offset" value={querySettings.offset} placeholder="Offset"
+								onChange={(e) => setQuerySettings({ offset: parseInt(e.target.value) })}
+								type="number" />
+						</FormGroup>
+					</div>
+				</div>
+				<div className="mt-5 mb-5">
+					<h3>Messaging</h3>
+					<Button onClick={() => {
+						messageFollowers(database, twitterClient, twitterUsername, cursor)
+					}}>
+						Message Followers
 					</Button>
 				</div>
 			</Container>
@@ -100,4 +109,3 @@ const Home = () => {
 }
 
 export default Home
-

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { NavbarToggler, Collapse } from 'reactstrap'
 
 const links = [
-  //{ href: '/', label: 'Home' },
+  { href: '/settings', label: 'Settings' },
 ].map(link => {
   link.key = `nav-link-${link.href}`
   return link
@@ -19,7 +19,7 @@ const Navbar = () => {
       
       <Link href="/">
         <a className="navbar-brand">
-          Twitter Exporter
+          Twitter Export
         </a>
       </Link>
       

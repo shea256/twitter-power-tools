@@ -1,21 +1,25 @@
-import db from '../../lib/db'
-import twitterAPI from '../../lib/twitter-api'
 import resolveUsers from '../../lib/resolve-users'
+import { Pool } from 'pg'
+import { parse } from 'pg-connection-string' 
+import Twit from 'twit'
 
 export default async (req, res) => {
-  // username is the twitter username
-  // group is either 'followers' or 'followees'
-  // first is the index of the first user to resolve
-  // last is the index of the last user to resolve
-
-  const { body: { username, group, first, last } } = req
-
-  const twitterAPIWrapper = {
-    api: twitterAPI,
-    username: username
-  }
+  const { body: { dbString, twitterClient, group, limit, offset } } = req
   
-  resolveUsers(db, twitterAPIWrapper, group, first, last)
+  const dbConfig = parse(dbString)
+  const db = new Pool(dbConfig)
+
+  const twitterAPIConfig = {
+    consumer_key: twitterClient.consumerKey,
+    consumer_secret: twitterClient.consumerSecret,
+    access_token: twitterClient.accessToken,
+    access_token_secret: twitterClient.accessTokenSecret,
+    timeout_ms: 60*1000,
+    strictSSL: true
+  }
+  const twitterAPI = new Twit(twitterAPIConfig)
+
+  resolveUsers(db, twitterAPI, group, limit, offset)
 
   const response = { "success": true }
 

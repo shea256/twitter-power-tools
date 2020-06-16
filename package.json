@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 4000",
     "build": "next build",
     "start": "next start"
   },
@@ -15,9 +15,14 @@
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.4.4",
     "pg": "^7.18.2",
+    "pg-connection-string": "^2.2.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "reactstrap": "^8.4.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-persist": "^6.0.0",
     "twit": "^2.2.11"
   }
 }
