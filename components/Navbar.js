@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { NavbarToggler, Collapse } from 'reactstrap'
 
 const links = [
+  { href: '/followers', label: 'Followers' },
   { href: '/settings', label: 'Settings' },
 ].map(link => {
   link.key = `nav-link-${link.href}`
