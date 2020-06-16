@@ -1,19 +1,36 @@
-# Twitter Graph Logger
+# Twitter Export
 
 ### Getting Started
 
-1. Make sure the required environment variables are present in the environment
-2. Run `node index`
+1. Clone this repository
+1. `cd` into the folder and run `npm install`
+1. Run `npm run dev` to start the server
+1. Create a Twitter API app and enter your Twitter API credentials in the settings page
+1. Create a postgresql database and enter your database settings in the settings page
 
-### Environment Variables
+### Creating a Twitter App
 
-- POSTGRESQL_PASSWORD
-- TWITTER_CONSUMER_SECRET
-- TWITTER_ACCESS_TOKEN_SECRET
+To use the Twitter API, you must register a Twitter App at https://developer.twitter.com/en/apps.
 
-### To Run
+Once there, click the "Create an app" button and fill out the information for your app.
 
-First, create the followers table:
+When creating it, make sure you set the permissions to "Read, write, and Direct Messages".
+
+Once you've created the app and set the permissions, go to the "Keys and tokens" tab and copy-paste the consumer key, consumer secret, access token, and access token secret into the settings page of the Twitter Export app.
+
+### Creating a database
+
+To use the Twitter Export tool, you need to provide your own postgresql database credentials.
+
+Any database will work, but we recommend using a hosted database provider like ElephantSQL for simplicity.
+
+To setup a postgresql database on ElephantSQL, go to https://www.elephantsql.com/ and create an account. If your account doesn't come with a database instance, create one. You may have to upgrade from the free plan to a basic plan to ensure the database requests aren't rate limited.
+
+Once you have your database instance created, go to the details tab, click the eye icon and copy-paste the database URL into the settings page of the Twitter Export app.
+
+Last, create your database tables by navigating to the SQL Browser tab and then entering in the commands below.
+
+Create the followers table:
 
 ```
 CREATE TABLE followers (
@@ -40,7 +57,7 @@ CREATE TABLE followers (
 )
 ```
 
-Second, create the followees table:
+Create the followees table:
 
 ```
 CREATE TABLE followees (
