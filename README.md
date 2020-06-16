@@ -1,6 +1,6 @@
 # Pilot 👨‍✈️
 
-The tool for you to view your twitter followers and send them messages.
+View your twitter followers and send them messages.
 
 ### Getting Started
 
