@@ -4,9 +4,10 @@ import Twit from 'twit'
 import { queryGraph } from '../../lib/query-graph'
 
 export default async (req, res) => {
-  const { body: { dbString, twitterClient } } = req
+  const { body: { dbString, twitterClient, limit, offset } } = req
 
-  if (!twitterClient || !twitterClient.consumerKey || !twitterClient.consumerKey.length) {
+  if (!twitterClient || !twitterClient.consumerKey
+      || !twitterClient.consumerKey.length) {
     res.json({ followers: [] })
     return
   }
@@ -24,9 +25,10 @@ export default async (req, res) => {
   }
   const twitterAPI = new Twit(twitterAPIConfig)
 
-  const followers = await queryGraph(db, 'followers', 100, 0, 'followers_count', 'DESC')
+  const queryResults = await queryGraph(
+    db, 'followers', limit, offset, 'followers_count', 'DESC')
 
-  const response = { "followers": followers }
+  const response = queryResults
 
   res.json(response)
 }
