@@ -1,6 +1,7 @@
 import { Container, Button, FormGroup, Input } from 'reactstrap'
 import fetch from 'isomorphic-unfetch'
 import { useQuerySettings } from '../lib/actions'
+import { connect } from 'react-redux'
 
 const resolveUsers = async (db, twitterClient, group, limit, offset) => {
 	const response = fetch('/api/resolve-users', {
@@ -32,7 +33,7 @@ const logGraph = async (db, twitterClient, twitterUsername, group, cursor) => {
 	return response
 }
 
-const Home = () => {
+const Home = ({ database, twitterClient, twitterUsername }) => {
 	const [querySettings, setQuerySettings] = useQuerySettings()
 
 	return (
@@ -93,14 +94,6 @@ const Home = () => {
 						</FormGroup>
 					</div>
 				</div>
-				<div className="mt-5 mb-5">
-					<h3>Messaging</h3>
-					<Button onClick={() => {
-						messageFollowers(database, twitterClient, twitterUsername, cursor)
-					}}>
-						Message Followers
-					</Button>
-				</div>
 			</Container>
       <style jsx>{`
       `}</style>
@@ -108,4 +101,12 @@ const Home = () => {
 	)
 }
 
-export default Home
+const mapStateToProps = (state) => ({
+  database: state.database,
+	twitterClient: state.twitterClient,
+	twitterUsername: state.twitterUsername
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

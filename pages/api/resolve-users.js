@@ -1,27 +1,20 @@
-import resolveUsers from '../../lib/resolve-users'
 import { Pool } from 'pg'
-import { parse } from 'pg-connection-string' 
-import Twit from 'twit'
+import { parse } from 'pg-connection-string'
+import resolveUsers from '../../lib/resolve-users'
+import { buildTwitterAPIFromConfig } from '../../lib/twitter-api'
 
 export default async (req, res) => {
   const { body: { dbString, twitterClient, group, limit, offset } } = req
   
-  const dbConfig = parse(dbString)
-  const db = new Pool(dbConfig)
+  const db = new Pool(parse(dbString))
 
-  const twitterAPIConfig = {
-    consumer_key: twitterClient.consumerKey,
-    consumer_secret: twitterClient.consumerSecret,
-    access_token: twitterClient.accessToken,
-    access_token_secret: twitterClient.accessTokenSecret,
-    timeout_ms: 60*1000,
-    strictSSL: true
+  const twitterAPI = buildTwitterAPIFromConfig(twitterClient)
+
+  try {
+    resolveUsers(db, twitterAPI, group, limit, offset)
+  } catch(e) {
+    res.json({ error: e, success: false })
   }
-  const twitterAPI = new Twit(twitterAPIConfig)
-
-  resolveUsers(db, twitterAPI, group, limit, offset)
-
-  const response = { "success": true }
-
-  res.json(response)
+  
+  res.json({ error: null, success: true })
 }

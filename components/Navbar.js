@@ -4,6 +4,7 @@ import { NavbarToggler, Collapse } from 'reactstrap'
 
 const links = [
   { href: '/followers', label: 'Followers' },
+  { href: '/followees', label: 'Followees' },
   { href: '/settings', label: 'Settings' },
 ].map(link => {
   link.key = `nav-link-${link.href}`

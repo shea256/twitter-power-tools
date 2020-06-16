@@ -1,6 +1,6 @@
 import { Container, Button, FormGroup, Input } from 'reactstrap'
 import {
-	useTwitterUsername, useDatabase, useTwitterClient, useQuerySettings
+	useTwitterUsername, useDatabase, useTwitterClient
 } from '../lib/actions'
 
 const Settings = () => {
@@ -31,28 +31,28 @@ const Settings = () => {
 					</FormGroup>
 					<FormGroup>
 						<label>Twitter Consumer Key</label>
-						<Input id="twitterConsumerKey" value={twitterClient.consumerKey}
+						<Input id="twitterConsumerKey" value={twitterClient.consumerKey || ''}
 							placeholder="xxx"
 							onChange={(e) => setTwitterClient({ consumerKey: e.target.value })}
 						/>
 					</FormGroup>
 					<FormGroup>
 						<label>Twitter Consumer Secret</label>
-						<Input id="twitterConsumerSecret" value={twitterClient.consumerSecret}
+						<Input id="twitterConsumerSecret" value={twitterClient.consumerSecret || ''}
 							placeholder="xxx"
 							onChange={(e) => setTwitterClient({ consumerSecret: e.target.value })}
 						/>
 					</FormGroup>
 					<FormGroup>
 						<label>Twitter Access Token</label>
-						<Input id="twitterAccessToken" value={twitterClient.accessToken}
+						<Input id="twitterAccessToken" value={twitterClient.accessToken || ''}
 							placeholder="xxx"
-							onChange={(e) => setTwitterClient({ accessToken: parseInt(e.target.value) })}
+							onChange={(e) => setTwitterClient({ accessToken: e.target.value })}
 						/>
 					</FormGroup>
 					<FormGroup>
 						<label>Twitter Access Token Secret</label>
-						<Input id="twitterAccessTokenSecret" value={twitterClient.accessTokenSecret}
+						<Input id="twitterAccessTokenSecret" value={twitterClient.accessTokenSecret || ''}
 							placeholder="xxx"
 							onChange={(e) => setTwitterClient({ accessTokenSecret: e.target.value })}
 						/>
