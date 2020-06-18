@@ -10,7 +10,7 @@ View your twitter followers and send them messages.
 
 ### Using the App
 
-1. Create a Twitter API app and enter your Twitter API credentials in the settings page
+1. Create a [Twitter app](#creating-a-twitter-app) and enter your Twitter API credentials in the settings page
 1. Create a [postgresql database](#creating-a-database) and enter your database settings in the settings page
 1. Click the "Log Follower ID's" button to start logging your Twitter followers - watch the console logs and don't close or refresh the page until the logs stop
 1. Click the "Lookup Follower Profiles" button to start looking up the profiles of your Twitter followers - watch the console logs and don't close or refresh the page until the logs stop
@@ -41,12 +41,8 @@ Last, create your database tables by navigating to the SQL Browser tab and then 
 
 Create the followers table:
 
-```
-CREATE TABLE followers (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
-```
+> CREATE TABLE followers (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
 
 Create the followees table:
 
-```
-CREATE TABLE followees (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
-```
+> CREATE TABLE followees (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
