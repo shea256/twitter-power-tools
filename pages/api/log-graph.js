@@ -1,9 +1,8 @@
-//import { logFollowers, logFollowees } from '../../lib/log-graph'
 import { Pool } from 'pg'
 import { parse } from 'pg-connection-string' 
 import { buildTwitterAPIFromConfig } from '../../lib/twitter-api'
-//import Queue from 'bull'
 import { sleep } from '../../lib/utils' 
+//import Queue from 'bull'
 
 export function logGraph(db, twitterAPI, twitterUsername, group, cursor) {
   return new Promise((resolve, reject) => {

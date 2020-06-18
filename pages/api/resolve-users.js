@@ -1,6 +1,5 @@
 import { Pool } from 'pg'
 import { parse } from 'pg-connection-string'
-//import resolveUsers from '../../lib/resolve-users'
 import { buildTwitterAPIFromConfig } from '../../lib/twitter-api'
 import { sleep } from '../../lib/utils' 
 

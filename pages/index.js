@@ -1,6 +1,6 @@
 import { Container, Button, FormGroup, Input } from 'reactstrap'
 import fetch from 'isomorphic-unfetch'
-import { useQuerySettings, useDatabase, useTwitterClient } from '../lib/actions'
+import { useQuerySettings } from '../lib/actions'
 import { connect } from 'react-redux'
 import useSWR from 'swr'
 import { dbGraphFetcher } from '../lib/fetchers'
