@@ -21,7 +21,7 @@ const Navbar = () => {
       
       <Link href="/">
         <a className="navbar-brand">
-          Twitter Export
+          Movement
         </a>
       </Link>
       

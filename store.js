@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage'
 const initialState = {
   database: {
     string: '',
+    redis: '',
     user: '',
     host: '',
     db: '',
