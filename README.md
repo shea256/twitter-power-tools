@@ -2,16 +2,16 @@
 
 View your twitter followers and send them messages.
 
-### Getting Started
+### Running the App Locally
 
 1. Clone this repository
 1. `cd` into the folder and run `npm install`
 1. Run `npm run dev` to start the server
+
+### Using the App
+
 1. Create a Twitter API app and enter your Twitter API credentials in the settings page
 1. Create a postgresql database and enter your database settings in the settings page
-
-### Usage
-
 1. Click the "Log Follower ID's" button to start logging your Twitter followers - watch the console logs and don't close or refresh the page until the logs stop
 1. Click the "Lookup Follower Profiles" button to start looking up the profiles of your Twitter followers - watch the console logs and don't close or refresh the page until the logs stop
 1. Repeat the previous two steps for your followees
