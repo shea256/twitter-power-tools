@@ -41,12 +41,8 @@ Last, create your database tables by navigating to the SQL Browser tab and then 
 
 Create the followers table:
 
-```
-CREATE TABLE followers (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
-```
+> CREATE TABLE followers (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
 
 Create the followees table:
 
-```
-CREATE TABLE followees (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
-```
+> CREATE TABLE followees (id BIGINT PRIMARY KEY, name TEXT, username VARCHAR(15), location TEXT, description TEXT, url TEXT, followers_count INTEGER, followees_count INTEGER, created_at TEXT, verified BOOLEAN, statuses_count INTEGER, language TEXT, background_image TEXT, profile_image TEXT, banner_image TEXT, following_me BOOLEAN, followed_by_me BOOLEAN, muting BOOLEAN, blocking BOOLEAN, blocked_by BOOLEAN)
