@@ -101,12 +101,11 @@ function resolveUsers(db, twitterAPI, tableName, limit, offset) {
 
     db.query(queryStringForUserSelect, (error, results) => {
       if (error) {
+        console.error('DB Error:')
+        console.error(error)
         reject(error)
         return
       }
-
-      console.log('Error:')
-      console.log(error)
 
       if (!('rows' in results)) {
         console.log('Results:')
@@ -117,7 +116,10 @@ function resolveUsers(db, twitterAPI, tableName, limit, offset) {
       const options = { user_id: userListString }
       twitterAPI.get('users/lookup', options, (error, data, response) => {
         if (error) {
+          console.error('Twitter Error:')
+          console.error(error)
           reject(error)
+          return
         }
 
         const users = formatUsersFromTwitterResponse(data, tableName)
@@ -162,14 +164,10 @@ export default async (req, res) => {
       return
     }
     currentOffset += limit
-    console.log(`Resolved users from ${currentOffset} to ${currentOffset + limit}; Sleeping for 1 second`)
-    await sleep(1000)
-  }
-
-  try {
-    
-  } catch(e) {
-    res.json({ error: e, success: false })
+    console.log(`Resolved users from ${currentOffset} to ${currentOffset + limit}`)
+    const sleepTime = 2000
+    console.log(`Sleeping for ${sleepTime/1000} seconds`)
+    await sleep(sleepTime)
   }
   
   res.json({ error: null, success: true })

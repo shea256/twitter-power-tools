@@ -150,7 +150,7 @@ const Home = ({ database, twitterClient, twitterUsername }) => {
 							Lookup Followee Profiles
 						</Button>
 					</div>
-					{/*<div className="mb-3 mt-3">
+					<div className="mb-3 mt-3">
 						<FormGroup>
 							<label>Limit</label>
 							<Input id="limit" value={querySettings.limit} placeholder="Limit"
@@ -163,7 +163,7 @@ const Home = ({ database, twitterClient, twitterUsername }) => {
 								onChange={(e) => setQuerySettings({ offset: parseInt(e.target.value) })}
 								type="number" />
 						</FormGroup>
-					</div>*/}
+					</div>
 				</div>
 			</Container>
       <style jsx>{`
