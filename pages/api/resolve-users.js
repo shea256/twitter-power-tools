@@ -5,75 +5,75 @@ import { buildTwitterAPIFromConfig } from '../../lib/twitter-api'
 import { sleep } from '../../lib/utils' 
 
 function formatUsersFromTwitterResponse(data, tableName) {
-	let newUsers = []
+  let newUsers = []
 
-	data.map(user => {
-		const followingMe = (tableName === 'followers') ? true : false
-		const followedByMe = (tableName === 'followees') ? true : false
+  data.map(user => {
+    const followingMe = (tableName === 'followers') ? true : false
+    const followedByMe = (tableName === 'followees') ? true : false
 
-		newUsers.push({
-			id: user.id,
-			name: user.name,
-			username: user.screen_name,
-			location: user.location,
-			description: user.description,
-			url: user.url,
-			followers_count: user.followers_count,
-			followees_count: user.friends_count,
-			listed_count: user.listed_count,
-			created_at: user.created_at,
-			favorites_count: user.favourites_count,
-			verified: user.verified,
-			statuses_count: user.statuses_count,
-			language: user.lang,
-			background_image: user.profile_background_image_url_https,
-			profile_image: user.profile_image_url_https,
-			banner_image: user.profile_banner_url,
-			following_me: followingMe,
-			followed_by_me: followedByMe
-		})
-	})
+    newUsers.push({
+      id: user.id,
+      name: user.name,
+      username: user.screen_name,
+      location: user.location,
+      description: user.description,
+      url: user.url,
+      followers_count: user.followers_count,
+      followees_count: user.friends_count,
+      listed_count: user.listed_count,
+      created_at: user.created_at,
+      favorites_count: user.favourites_count,
+      verified: user.verified,
+      statuses_count: user.statuses_count,
+      language: user.lang,
+      background_image: user.profile_background_image_url_https,
+      profile_image: user.profile_image_url_https,
+      banner_image: user.profile_banner_url,
+      following_me: followingMe,
+      followed_by_me: followedByMe
+    })
+  })
 
-	return newUsers
+  return newUsers
 }
 
 function buildQueryStringForUserUpdate(id, fields, tableName) {
-	const fieldNames = fields.map(field => field[0])
-	let queryString = `UPDATE ${tableName} SET `
-	let setStatements = []
-	fieldNames.map((fieldName, i) => {
-		setStatements.push(`${fieldName} = ($${i+1})`)
-	})
-	queryString += setStatements.join(', ')
-	queryString += ` WHERE id = ${id}`
-	return queryString
+  const fieldNames = fields.map(field => field[0])
+  let queryString = `UPDATE ${tableName} SET `
+  let setStatements = []
+  fieldNames.map((fieldName, i) => {
+    setStatements.push(`${fieldName} = ($${i+1})`)
+  })
+  queryString += setStatements.join(', ')
+  queryString += ` WHERE id = ${id}`
+  return queryString
 }
 
 function getValuesFromUser(user, fields) {
-	let values = []
+  let values = []
 
-	fields.map((field, index) => {
-		const fieldName = field[0]
-		const fieldType = field[1]
+  fields.map((field, index) => {
+    const fieldName = field[0]
+    const fieldType = field[1]
 
-		let value = user[fieldName]
+    let value = user[fieldName]
 
-		if (!user.hasOwnProperty(fieldName) || value === undefined || value === null) {
-			if (fieldType === 'text') {
-				value = ''
-			} else if (fieldType === 'boolean') {
-				value = null
-			} else if (fieldType === 'numeric') {
-				value = 0
-			} else {
-				throw 'Invalid field type'
-			}
-		}
+    if (!user.hasOwnProperty(fieldName) || value === undefined || value === null) {
+      if (fieldType === 'text') {
+        value = ''
+      } else if (fieldType === 'boolean') {
+        value = null
+      } else if (fieldType === 'numeric') {
+        value = 0
+      } else {
+        throw 'Invalid field type'
+      }
+    }
 
-		values.push(value)
-	})
+    values.push(value)
+  })
 
-	return values
+  return values
 }
 
 const USER_TABLE_FIELDS = [
