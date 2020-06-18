@@ -20,12 +20,12 @@ const Settings = () => {
 							placeholder="postgres://"
 							onChange={(e) => setDatabase({ string: e.target.value })} />
 					</FormGroup>
-					<FormGroup>
+					{/*<FormGroup>
 						<label>Redis Database String</label>
 						<Input id="redis" value={database.redis || ''}
 							placeholder="redis://"
 							onChange={(e) => setDatabase({ redis: e.target.value })} />
-					</FormGroup>
+					</FormGroup>*/}
 				</div>
 				<div className="mt-5 mb-5">
 					<h3>Twitter Settings</h3>
