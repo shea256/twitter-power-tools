@@ -113,7 +113,7 @@ const Home = ({ database, twitterClient, twitterUsername }) => {
 							<div className="card-header">Follower profiles logged</div>
 							<div className="card-body">
 								<h4 className="card-title">
-									{followeesCount.toLocaleString()}
+									{followersResolvedCount.toLocaleString()}
 								</h4>
 							</div>
 						</div>
@@ -121,7 +121,7 @@ const Home = ({ database, twitterClient, twitterUsername }) => {
 							<div className="card-header">Followee ID's logged</div>
 							<div className="card-body">
 								<h4 className="card-title">
-									{followersResolvedCount.toLocaleString()}
+									{followeesCount.toLocaleString()}
 								</h4>
 							</div>
 						</div>
